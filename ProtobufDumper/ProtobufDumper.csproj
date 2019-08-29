@@ -11,10 +11,13 @@
         <PublishReadyToRun>true</PublishReadyToRun>
         <PublishSingleFile>true</PublishSingleFile>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PackageVersion>1.0.1</PackageVersion>
+        <AssemblyVersion>1.0.1</AssemblyVersion>
+        <FileVersion>1.0.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="protobuf-net" Version="2.4.0"/>
+        <PackageReference Include="protobuf-net" Version="2.4.0" />
     </ItemGroup>
 
 </Project>

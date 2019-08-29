@@ -6,13 +6,11 @@ using ProtoBuf;
 
 namespace ProtobufDumper
 {
-    class ProtobufCollector
+    internal class ProtobufCollector
     {
-        public List<FileDescriptorProto> Candidates { get; private set; }
-
         public enum CandidateResult
         {
-            OK,
+            Ok,
             Rescan,
             Invalid
         }
@@ -22,30 +20,32 @@ namespace ProtobufDumper
             Candidates = new List<FileDescriptorProto>();
         }
 
-        public bool TryParseCandidate( string name, Stream data, out CandidateResult result, out Exception error )
+        public List<FileDescriptorProto> Candidates { get; private set; }
+
+        public bool TryParseCandidate(string name, Stream data, out CandidateResult result, out Exception error)
         {
             FileDescriptorProto candidate;
 
             try
             {
-                candidate = Serializer.Deserialize<FileDescriptorProto>( data );
+                candidate = Serializer.Deserialize<FileDescriptorProto>(data);
             }
-            catch ( EndOfStreamException ex )
+            catch (EndOfStreamException ex)
             {
                 result = CandidateResult.Rescan;
                 error = ex;
                 return false;
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
                 result = CandidateResult.Invalid;
                 error = ex;
                 return true;
             }
 
-            Candidates.Add( candidate );
+            Candidates.Add(candidate);
 
-            result = CandidateResult.OK;
+            result = CandidateResult.Ok;
             error = null;
             return true;
         }
